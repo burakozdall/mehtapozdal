@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mehtap Özdal — Grafik Tasarım · Dizgi · Mizanpaj</title>
+<style>
+:root{--desk:#d9d5ce;--paper:#f3efe7;--ink:#161616;--mut:#77726a;--line:#161616;--ai:#d9731a;--id:#8f1d36;--ps:#1f5f8b;--o:.08;color-scheme:light;box-sizing:border-box}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--desk:#0c0c0c;--paper:#1a1918;--ink:#ece8df;--mut:#8f8a80;--line:#ece8df;--o:.1;color-scheme:dark}}
+:root[data-theme="dark"]{--desk:#0c0c0c;--paper:#1a1918;--ink:#ece8df;--mut:#8f8a80;--line:#ece8df;--o:.1;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--desk);color:var(--ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;overflow:hidden;display:flex;justify-content:center}
+.stage{position:relative;height:100dvh;aspect-ratio:9/16;max-width:100vw;background:var(--paper);overflow:hidden;box-shadow:0 0 60px rgba(0,0,0,.18)}
+@media (max-width:600px){.stage{width:100vw;aspect-ratio:auto}}
+.bg{position:absolute;inset:0;pointer-events:none;opacity:var(--o);z-index:0;animation:fade 1.4s ease both;
+background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:100% 24px,calc(100%/6) 100%}
+.bg svg{position:absolute;inset:0;width:100%;height:100%}
+@keyframes fade{from{opacity:0}}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.a{opacity:0;animation:up .9s cubic-bezier(.2,.7,.2,1) forwards}
+@media (prefers-reduced-motion:reduce){.a{opacity:1;animation:none}.bg{animation:none}}
+.scroller{position:absolute;inset:0;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;z-index:1}
+.scroller::-webkit-scrollbar{display:none}
+section{height:100%;scroll-snap-align:start;scroll-snap-stop:always;padding:calc(62px + env(safe-area-inset-top,0px)) 7% calc(50px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column}
+.hud{position:absolute;top:0;right:0;left:0;z-index:5;display:flex;justify-content:space-between;padding:calc(14px + env(safe-area-inset-top,0px)) 7% 0;font-size:10px;letter-spacing:.2em;font-weight:700;pointer-events:none}
+.hud b{color:var(--id)}
+.ft{position:absolute;bottom:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;padding:0 7% calc(14px + env(safe-area-inset-bottom,0px));font-size:9px;letter-spacing:.14em;color:var(--mut);pointer-events:none}
+.k{font-size:10px;letter-spacing:.2em;color:var(--mut);text-transform:uppercase;display:flex;gap:10px;align-items:center}
+.k::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c,var(--ai))}
+h1{font-size:clamp(38px,10.5vh,88px);line-height:.92;letter-spacing:-.035em;font-weight:800;margin:14px 0}
+h2{font-size:clamp(26px,5.6vh,48px);line-height:1;letter-spacing:-.03em;font-weight:800;margin:12px 0}
+p{font-size:clamp(12px,1.9vh,15px);line-height:1.55;max-width:40ch;margin-top:10px}
+.sp{flex:1}
+.mt{color:var(--mut);font-size:10px;letter-spacing:.16em;text-transform:uppercase}
+.tags{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:10.5px;letter-spacing:.14em;font-weight:700;margin-top:10px}
+.area{flex:1;display:grid;gap:10px;min-height:0;margin-top:14px;grid-auto-rows:1fr}
+.slot{position:relative;border:1px solid var(--line);background:repeating-linear-gradient(135deg,transparent 0 9px,color-mix(in srgb,var(--ink) 6%,transparent) 9px 10px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px;min-height:0;overflow:hidden;transition:transform .25s}
+.slot:hover{transform:translate(-3px,-3px)}
+.slot b{font-size:clamp(9px,1.5vh,12px);letter-spacing:.1em;line-height:1.5}
+.slot figcaption{position:absolute;left:8px;bottom:6px;font-size:8.5px;letter-spacing:.1em;color:var(--mut)}
+.slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tbl{margin-top:14px;border-top:1px solid var(--line);overflow:auto;min-height:0}
+.tbl div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid color-mix(in srgb,var(--line) 22%,transparent);font-size:clamp(11px,1.8vh,14px);font-weight:600}
+.tbl span{color:var(--mut);font-weight:400;font-size:10px;letter-spacing:.12em;text-align:right;align-self:center}
+.big{font-size:clamp(64px,17vh,150px);font-weight:800;letter-spacing:-.05em;line-height:.85}
+.lk a,a.lk{color:var(--ink);text-decoration:none;cursor:pointer;display:flex;gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px solid color-mix(in srgb,var(--line) 20%,transparent);font-size:clamp(13px,2.2vh,18px);font-weight:600;transition:padding .2s}
+.lk a:hover{padding-left:10px;color:var(--id)}
+.lk em{font-style:normal;font-size:10px;color:var(--mut);letter-spacing:.14em;min-width:24px}
+.ct a{display:block;color:var(--ink);text-decoration:none;font-size:clamp(18px,4vh,32px);font-weight:700;margin-top:12px;width:fit-content}
+.ct a::after{content:attr(data-h);color:var(--id);margin-left:12px;opacity:0;font-size:.45em;letter-spacing:.16em;transition:opacity .2s,margin .2s}
+.ct a:hover::after,.ct a:focus-visible::after{opacity:1;margin-left:18px}
+.nav{display:flex;gap:22px;margin-top:20px;font-size:12px;letter-spacing:.2em;font-weight:700}
+.nav a{color:var(--ink);text-decoration:none;cursor:pointer;border-bottom:1px solid var(--id);padding-bottom:3px}
+.cv{overflow:auto;min-height:0;margin-top:10px;font-size:clamp(10.5px,1.65vh,13px);line-height:1.5}
+.cv h3{font-size:10px;letter-spacing:.2em;color:var(--id);margin:12px 0 4px}
+.cur{position:fixed;z-index:9;pointer-events:none;font-size:9px;letter-spacing:.14em;color:var(--id);transform:translate(14px,14px);white-space:nowrap}
+.cur::before{content:"+";position:absolute;left:-20px;top:-22px;font-size:18px;line-height:1}
+.dot{position:fixed;z-index:8;pointer-events:none;width:7px;height:7px;border:1px solid var(--id);margin:-3px;animation:dot .9s ease-out forwards}
+.dot.x{border:0;width:12px;height:12px;margin:-6px;background:linear-gradient(var(--id),var(--id)) center/1px 100% no-repeat,linear-gradient(var(--id),var(--id)) center/100% 1px no-repeat}
+@keyframes dot{to{opacity:0;transform:scale(1.8)}}
+@media (hover:none){.cur,.dot{display:none}}
+</style>
+</head>
+<body>
+<main class="stage">
+  <div class="bg"><svg viewBox="0 0 450 800" preserveAspectRatio="none" fill="none" stroke="currentColor" style="color:var(--ink)">
+    <path d="M30 600 C120 420 250 760 420 520" stroke-width="1"/><circle cx="30" cy="600" r="3"/><circle cx="420" cy="520" r="3"/><circle cx="165" cy="560" r="3"/>
+    <path d="M30 600L120 420M420 520L300 760" stroke-width=".6" stroke-dasharray="3 3"/>
+    <rect x="60" y="120" width="330" height="200" stroke-width=".7" stroke-dasharray="4 3"/>
+    <path d="M12 12h18M12 12v18M438 12h-18M438 12v18M12 788h18M12 788v-18M438 788h-18M438 788v-18" stroke-width="1"/>
+    <circle cx="225" cy="14" r="5"/><path d="M225 6v16M217 14h16" stroke-width=".6"/>
+  </svg></div>
+  <div class="hud"><span id="name"></span><span id="pg"></span></div>
+  <div class="ft"><span>GRAFİK TASARIM · DİZGİ · MİZANPAJ</span><span id="yr"></span></div>
+  <div class="scroller" id="sc"></div>
+</main>
+<div class="cur" id="cur">+</div>
+<script>
+// ================= MERKEZİ VERİ — yalnızca bu bölümü düzenle =================
+const DATA={name:"Mehtap Özdal",cvName:"Mehtap Güngör Özdal",title:"Grafik Tasarımcı · Dizgi Tasarımcısı",
+ location:"Ankara, Türkiye",phoneDisplay:"0554 509 95 27",phoneTel:"+905545099527",email:"gungormehtap@hotmail.com",since:"2007",year:"2026"};
+const experience=[
+ {company:"Günay Yayınları",period:"05.2019 —",role:"Grafik Tasarım · Dizgi Tasarım",location:"Ankara, Türkiye",works:[],images:[]},
+ {company:"Ata Yayınları",period:"02.2013 — 01.2019",role:"Grafik Tasarım · Dizgi Tasarım",location:"Ankara, Türkiye",works:[],images:[]},
+ {company:"Yeni Dizgi, Reklam ve Grafik Ajansı",period:"07.2011 — 09.2012",role:"Grafik Tasarım · Dizgi Tasarım",location:"Ankara, Türkiye",works:[],images:[]},
+ {company:"Sevgi Koleji",period:"02.2009 — 09.2010",role:"Öğrenci İşleri Sorumlusu",location:"Ankara, Türkiye",works:[],images:[]},
+ {company:"AG Design, Reklam Ajansı",period:"01.2007 — 12.2008",role:"Grafik Tasarım · Dizgi Tasarım",location:"Ankara, Türkiye",works:[],images:[]}];
+const freelanceProjects=[];  // {title,client,year,work,category,images:[]}
+const portfolioProjects=[];  // {title,category,subcategory,year,company,role,description,images:[]}
+// Gerçek görseller: dosya adı → yol. Örn: IMAGES["gunay-cover-01.jpg"]="img/gunay-cover-01.jpg"
+const IMAGES={};
+const STATS=[["XX+","KİTAP"],["XX+","EĞİTİM YAYINI"],["XX+","DERGİ"],["XX+","SAYFA"],["XX+","KAPAK"]];
+// ============================================================================
+const $=s=>document.querySelector(s),U=s=>s.toLocaleUpperCase("tr");
+const slot=(l,f)=>IMAGES[f]?`<figure class="slot"><img src="${IMAGES[f]}" alt="${l}"></figure>`:`<figure class="slot"><b>[ BURAYA ${l} KOY ]</b><figcaption>${f}</figcaption></figure>`;
+const mk=(p,list)=>list.map(s=>{const[l,k]=s.split("|");return slot(l,`${p}-${k}-01.jpg`)}).join("");
+const area=(c,h)=>`<div class="area" style="grid-template-columns:${c}">${h}</div>`;
+const sec=(cur,k,h,id,c)=>`<section data-cur="${cur}" ${id?`id="${id}"`:""} ${c?`style="--c:var(${c})"`:""}><div class="k">${k}</div>${h}</section>`;
+const tbl=r=>`<div class="tbl">${r.map(x=>`<div>${x[0]}<span>${x[1]||""}</span></div>`).join("")}</div>`;
+const S=[];
+const A=(i,h)=>`<div class="a" style="animation-delay:${i*.35+.5}s">${h}</div>`;
+S.push(sec("ANA SAYFA","Portfolyo / Dijital tasarım arşivi",A(0,`<h1>${U(DATA.name).replace(" ","<br>")}</h1>`)+A(1,`<div class="tags" style="font-size:12px"><span>GRAFİK TASARIM</span><span>DİZGİ</span><span>MİZANPAJ</span></div>`)+`<div class="sp"></div>`+A(2,`<p style="font-weight:700;max-width:none">${DATA.since}’den beri tasarım ve yayıncılık deneyimi</p><div class="mt" style="margin-top:8px">GRAPHIC DESIGN · TYPESETTING · LAYOUT</div>`),"kapak"));
+S.push(sec("OKU","Profil",`<h2>${DATA.title}</h2><p>Gazi Üniversitesi Matbaacılık mezunu olan Mehtap Özdal, grafik tasarım, dizgi ve mizanpaj alanlarında çalışan bir tasarımcıdır.</p><p>Yayıncılık ve eğitim yayınları ağırlıklı çalışma deneyimiyle kitap, yayın, sayfa düzeni, tipografi, dizgi ve baskı hazırlığı süreçlerinde çalışmaktadır.</p><p>Tasarım yaklaşımında içerik organizasyonu, okunabilirlik, tipografik hiyerarşi ve doğru sayfa yapısı ön plandadır.</p><div class="sp"></div>${tbl([["Konum",DATA.location],["Meslek",DATA.title]])}`,"profil"));
+S.push(sec("OKU","Tasarım yaklaşımı",`<div class="sp"></div>${["İçerik organizasyonu","Okunabilirlik","Tipografik hiyerarşi","Doğru sayfa yapısı"].map((t,i)=>`<h2 style="font-size:clamp(28px,7vh,60px);border-top:1px solid var(--line);padding-top:12px;margin:0 0 14px"><span class="mt" style="display:block;margin-bottom:4px">0${i+1}</span>${t}</h2>`).join("")}<div class="sp"></div>`));
+S.push(sec("OKU","Deneyim — Nerede çalıştım?",`<h2>Deneyim</h2>${tbl(experience.map(e=>[e.company,e.period]))}<p class="mt" style="margin-top:12px">${DATA.location}</p>`,"deneyim"));
+S.push(sec("OKU","Kariyer zaman çizelgesi",`<div class="sp"></div><div class="tbl" style="border:0">${[["2007","AG Design","Grafik Tasarım · Dizgi"],["2009","Sevgi Koleji","Öğrenci İşleri"],["2011","Yeni Dizgi","Grafik Tasarım · Dizgi"],["2013","Ata Yayınları","Grafik Tasarım · Dizgi"],["2019","Günay Yayınları","Grafik Tasarım · Dizgi"],["FREELANCE","Seçili çalışmalar","Sonradan doldurulacak"]].map(r=>`<div style="flex-direction:column;gap:2px;padding:12px 0"><span style="text-align:left;font-size:clamp(20px,4.6vh,38px);font-weight:800;letter-spacing:-.02em;color:var(--ink)">${r[0]}</span>${r[1]} <span style="text-align:left">${r[2]}</span></div>`).join("")}</div><div class="sp"></div>`));
+const empScreen=(e,p,tags,spec,c,n)=>sec("İŞİ GÖR",`Deneyim ${n}`,`<h2>${e.company}</h2><div class="mt">${e.period} · ${e.role} · ${e.location}</div>${tags?`<div class="tags">${tags.map(t=>`<span>${t}</span>`).join("")}</div><div class="mt" style="margin-top:6px;text-transform:none;letter-spacing:.06em">Etiketler yalnızca gerçekten yapılan işler için doğrulanacak.</div>`:""}${area("1fr 1fr",mk(p,spec))}`,"",c);
+S.push(empScreen(experience[0],"gunay",["Eğitim Yayınları","Kitap","Dizgi","Mizanpaj","Tipografi","Baskı Hazırlığı"],["GERÇEK KİTAP KAPAĞI|cover","KİTAP İÇ SAYFASI|interior","GERÇEK DİZGİ ÖRNEĞİ|detail","BASILMIŞ YAYIN|print"],"--ai","01"));
+S.push(empScreen(experience[1],"ata",["İlkokul","Ortaokul","Sayısal","Sözel"],["GERÇEK KİTAP KAPAĞI|cover","İLKOKUL İÇ SAYFASI|interior","SAYISAL DERS KİTABI SAYFASI|numerical","SÖZEL DERS KİTABI SAYFASI|verbal"],"--id","02"));
+S.push(empScreen(experience[2],"yeni-dizgi",null,["GERÇEK İŞ ÖRNEĞİ|work","GERÇEK MİZANPAJ ÖRNEĞİ|layout"],"--ps","03"));
+S.push(empScreen(experience[4],"ag-design",null,["GERÇEK İŞ ÖRNEĞİ|work","GERÇEK MİZANPAJ ÖRNEĞİ|layout"],"--ai","04"));
+S.push(sec("OKU","Diğer profesyonel deneyim",`<h2>${experience[3].company}</h2><div class="mt">${experience[3].period} · ${experience[3].location}</div>${tbl([["Görev",experience[3].role]])}`));
+S.push(sec("İŞİ GÖR","Freelance işler",`<h2>Freelance işler</h2><div class="mt">CV’deki deneyimlerden ayrı tutulur</div>`+(freelanceProjects.length?tbl(freelanceProjects.map(f=>[f.title+" · "+f.client,f.year])):tbl([["FREELANCE PROJE 01",""],["Proje adı","[ doldurulacak ]"],["Müşteri / yayın","[ doldurulacak ]"],["Yıl","[ doldurulacak ]"],["Yapılan iş","[ doldurulacak ]"],["Kategori","[ doldurulacak ]"]]))+area("2fr 1fr 1fr",slot("GERÇEK İŞ GÖRSELİ","freelance-01-cover.jpg")+slot("İÇ SAYFA","freelance-01-interior-01.jpg")+slot("DETAY","freelance-01-detail-01.jpg")),"freelance","--id"));
+const ARCH=["EĞİTİM YAYINLARI","KİTAPLAR","DERGİLER","KATALOGLAR","KURUMSAL YAYINLAR","DİZGİ","MİZANPAJ","BASKI / PREPRESS"];
+S.push(sec("İŞİ GÖR","Portfolyo — Ne yaptım?",`<h2>İş arşivi</h2><div class="lk" style="overflow:auto;min-height:0">${ARCH.map((a,i)=>`<a data-j="a${i}"><em>0${i+1}</em>${a}</a>`).join("")}</div>`,"arsiv"));
+const EDU=[["İLKOKUL","ilkokul",["KİTAP KAPAĞI|cover","İLKOKUL İÇ SAYFASI|interior","ETKİNLİK SAYFASI|activity","ÇALIŞMA SAYFASI|worksheet"]],
+["ORTAOKUL","ortaokul",["KİTAP KAPAĞI|cover","KONU ANLATIMI SAYFASI|lesson","SORU / TEST SAYFASI|test","İÇ SAYFA|interior"]],
+["SAYISAL","sayisal",["MATEMATİK SAYFASI|math","FİZİK / KİMYA SAYFASI|science","FORMÜL VE TABLO|formula","GRAFİK / DİYAGRAM|diagram"]],
+["SÖZEL","sozel",["TÜRKÇE / EDEBİYAT SAYFASI|literature","TARİH SAYFASI|history","COĞRAFYA SAYFASI|geography","METİN AĞIRLIKLI SAYFA|text"]],
+["ÇALIŞMA KİTAPLARI","calisma",["KİTAP KAPAĞI|cover","İÇ SAYFA|interior","DETAY|detail"]],
+["TEST KİTAPLARI","test",["KİTAP KAPAĞI|cover","TEST İÇ SAYFASI|interior","DETAY|detail"]],
+["ETKİNLİK KİTAPLARI","etkinlik",["KİTAP KAPAĞI|cover","ETKİNLİK İÇ SAYFASI|interior","DETAY|detail"]]];
+S.push(sec("İŞİ GÖR","Ana kategori",`<h2>Eğitim yayınları</h2><p>Kapak + iç sayfa + detay.</p><div class="lk" style="margin-top:10px">${EDU.map((e,i)=>`<a data-j="e${i}"><em>0${i+1}</em>${e[0]}</a>`).join("")}</div>`,"a0","--ai"));
+EDU.forEach((e,i)=>S.push(sec("İŞİ GÖR","Eğitim yayınları / "+e[0],`<h2>${e[0]}</h2>${area("1fr 1fr",mk("edu-"+e[1],e[2]))}`,"e"+i,"--ai")));
+const CAT=[["KİTAPLAR","kitap",["GERÇEK KİTAP KAPAĞI|cover","KİTAP İÇ SAYFASI|interior","KİTAP DİZGİSİ|typeset","TİPOGRAFİ DETAYI|detail"]],
+["DERGİLER","dergi",["DERGİ KAPAĞI|cover","EDİTORYAL MİZANPAJ|layout","DERGİ SPREAD’İ|spread","İÇ SAYFA|interior"]],
+["KATALOGLAR","katalog",["KATALOG KAPAĞI|cover","KATALOG İÇ SAYFASI|interior","GRID ÖRNEĞİ|grid","DETAY|detail"]],
+["KURUMSAL YAYINLAR","kurumsal",["RAPOR SAYFASI|report","BROŞÜR|brochure","KATALOG SAYFASI|catalog","DETAY|detail"]]];
+CAT.forEach((c,i)=>S.push(sec("İŞİ GÖR","İş arşivi / "+c[0],`<h2>${c[0]}</h2>${area("1fr 1fr",mk(c[1],c[2]))}`,"a"+(i+1),"--id")));
+S.push(sec("IZGARA","İş arşivi / Dizgi",`<h2>Dizgi</h2><p>Yoğun metin ve tipografik düzen örnekleri.</p>${area("1fr 1fr",slot("YOĞUN METİNLİ İÇ SAYFA","dizgi-interior-01.jpg")+slot("BAŞLIK + PARAGRAF SİSTEMİ","dizgi-hierarchy-01.jpg")+slot("TABLO","dizgi-table-01.jpg")+slot("DİPNOT / DETAY","dizgi-detail-01.jpg")+`<div style="grid-column:span 2">${slot("GRID","dizgi-grid-01.jpg")}</div>`)}<div class="tags"><span>DİZGİ</span><span>İÇ SAYFA</span><span>TİPOGRAFİ</span><span>GRID</span></div>`,"a5","--ps"));
+S.push(sec("IZGARA","İş arşivi / Mizanpaj",`<h2>Mizanpaj</h2><p>Grid, kolon, başlık hiyerarşisi ve görsel yerleşimi.</p>${area("1fr",slot("GERÇEK SAYFA — FINAL","mizanpaj-final-01.jpg")+slot("AYNI SAYFA — GRID","mizanpaj-grid-01.jpg")+slot("TİPOGRAFİ DETAYI","mizanpaj-detail-01.jpg"))}<div class="tags"><span>FINAL</span><span>→ GRID</span><span>→ DETAIL</span></div>`,"a6","--ps"));
+S.push(sec("İŞİ GÖR","İş arşivi / Baskı öncesi",`<h2>Baskı / Prepress</h2><p>Baskı öncesi hazırlık ve gerçek üretim örnekleri.</p>${area("1fr 1fr",slot("BASKI ÖNCESİ HAZIRLIK ÖRNEĞİ","prepress-work-01.jpg")+slot("GERÇEK ÜRETİM ÖRNEĞİ","prepress-print-01.jpg"))}`,"a7","--ai"));
+portfolioProjects.forEach((p,i)=>S.push(sec("PROJEYİ GÖR",`${p.category} / ${p.subcategory}`,`<h2>${p.title}</h2><div class="mt">${p.company} · ${p.year} · ${p.role}</div><p>${p.description}</p>${area("1fr 1fr",p.images.map(f=>slot(p.title,f)).join(""))}`)));
+S.push(sec("OKU","İş istatistikleri",`<div class="sp"></div>${STATS.map(s=>`<div style="border-top:1px solid var(--line);padding:10px 0"><div class="big" style="font-size:clamp(40px,9vh,80px)">${s[0]}</div><div class="mt">${s[1]}</div></div>`).join("")}<div class="sp"></div>`));
+S.push(sec("OKU","Yetkinlikler",`<h2>Yetkinlikler</h2>${[["TASARIM",["Grafik Tasarım","Editoryal Tasarım","Yayın Tasarımı","Kitap Tasarımı","Katalog Tasarımı"]],["DİZGİ / MİZANPAJ",["Dizgi","Mizanpaj","Grid Sistemleri","Tipografik Hiyerarşi","Sayfa Düzeni"]],["ÜRETİM",["Baskı Hazırlığı","Prepress","PDF Kontrolü","Baskı Süreci"]]].map(g=>`<div class="mt" style="margin-top:16px;color:var(--id)">${g[0]}</div><div class="tags" style="font-size:clamp(12px,2.1vh,16px);letter-spacing:.04em;gap:6px 18px">${g[1].map(x=>`<span>${x}</span>`).join("")}</div>`).join("")}`));
+S.push(sec("OKU","Programlar",`<h2>Programlar</h2><div class="mt" style="margin-top:10px;color:var(--id)">ADOBE</div>${tbl([["Adobe Photoshop"],["Adobe InDesign"],["Adobe Illustrator"]])}<div class="mt" style="margin-top:16px;color:var(--id)">DİĞER</div>${tbl([["Mattype"],["Math Magic"],["Microsoft Office"]])}<div class="mt" style="margin-top:16px;color:var(--id)">AI DESTEKLİ YARATICI ÇALIŞMA</div><p>[ KULLANDIĞIN AI ARAÇLARI BURAYA EKLENECEK ]</p>`));
+S.push(sec("OKU","Eğitim",`<h2>Eğitim</h2>${tbl([["Gazi Üniversitesi · Matbaacılık","2004 — 2006"],["Kalaba Kız Meslek Lisesi · Resim","2000 — 2004"]])}<p class="mt">Ankara, Türkiye</p>`));
+S.push(sec("OKU","Sertifika ve diller",`<h2>Sertifika</h2>${tbl([["IN DESIGN","2021"],["ODTÜ-METU-Bilgeis","Ankara, Türkiye"]])}<h2 style="margin-top:28px">Diller</h2>${tbl([["İngilizce","Orta"],["Almanca","Başlangıç"]])}`));
+const cvr=experience.map(e=>`<b>${e.company}</b> — ${e.role}<br><span class="mt">${e.period} · ${e.location}</span><br>`).join("<br>");
+S.push(sec("OKU","CV",`<h2>${DATA.cvName}</h2><div class="cv"><h3>İLETİŞİM</h3>${DATA.location}<br>${DATA.phoneDisplay}<br>${DATA.email}<h3>DENEYİM</h3>${cvr}<h3>EĞİTİM</h3>Gazi Üniversitesi — Matbaacılık (2004–2006)<br>Kalaba Kız Meslek Lisesi — Resim (2000–2004)<h3>SERTİFİKA</h3>IN DESIGN — ODTÜ-METU-Bilgeis (2021)<h3>PROGRAMLAR</h3>Adobe Photoshop, InDesign, Illustrator · Mattype · Math Magic · Microsoft Office<h3>DİLLER</h3>İngilizce — Orta · Almanca — Başlangıç</div>`,"cv"));
+S.push(sec("İLETİŞİM →","İletişim",`<h1 style="font-size:clamp(34px,9vh,76px)">${U(DATA.name).replace(" ","<br>")}</h1><div class="mt">${DATA.location}</div><div class="sp"></div><div class="ct"><a id="ph" data-h="ARA →">${DATA.phoneDisplay}</a><a id="ml" data-h="E-POSTA →">${DATA.email}</a></div><div class="nav"><a data-j="cv">CV</a><a data-j="arsiv">PORTFOLYO</a></div>`,"iletisim"));
+S.push(sec("ANA SAYFA","",`<div class="sp"></div><h1>${U(DATA.name).replace(" ","<br>")}</h1><div class="tags" style="font-size:12px"><span>GRAFİK TASARIM</span><span>DİZGİ</span><span>MİZANPAJ</span></div><p class="mt" style="margin-top:14px">${DATA.since} —</p><div class="sp"></div><div class="nav"><a data-j="arsiv">İŞLER</a><a data-j="cv">CV</a><a data-j="iletisim">İLETİŞİM</a></div>`));
+const sc=$("#sc");sc.innerHTML=S.join("");
+const secs=[...sc.children],T=secs.length,pad=n=>String(n).padStart(2,"0");
+$("#name").innerHTML=`<b>${U(DATA.name)}</b>`;$("#yr").textContent=DATA.year;
+$("#ph").href="tel:"+DATA.phoneTel;$("#ml").href="mailto:"+DATA.email;
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)$("#pg").textContent=pad(secs.indexOf(e.target)+1)+" / "+pad(T)}),{root:sc,threshold:.6});
+secs.forEach(s=>io.observe(s));
+sc.addEventListener("click",e=>{const a=e.target.closest("[data-j]");if(a)document.getElementById(a.dataset.j)?.scrollIntoView({behavior:"smooth"})});
+addEventListener("keydown",e=>{const d={ArrowDown:1,PageDown:1," ":1,ArrowUp:-1,PageUp:-1}[e.key];if(d){e.preventDefault();sc.scrollBy({top:d*sc.clientHeight,behavior:"smooth"})}});
+const cur=$("#cur");let last=0,n=0;
+addEventListener("pointermove",e=>{cur.style.left=e.clientX+"px";cur.style.top=e.clientY+"px";
+ const s=e.target.closest("section"),a=e.target.closest("a,[data-j]"),sl=e.target.closest(".slot");
+ cur.textContent=a&&a.closest(".nav,.lk")?"AÇ →":sl?"İŞİ GÖR":s?(s.dataset.cur||"+"):"+";
+ const t=performance.now();if(t-last>110){last=t;const d=document.createElement("div");d.className="dot"+(++n%3?"":" x");d.style.left=e.clientX+"px";d.style.top=e.clientY+"px";document.body.appendChild(d);setTimeout(()=>d.remove(),900)}});
+</script>
+</body>
+</html>
